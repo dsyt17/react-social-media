@@ -1,0 +1,29 @@
+.app-wrapper {
+  display: grid;
+  width: 1200px;
+  margin: 0 auto;
+  grid-template-areas:
+    "header header"
+    "nav content";
+
+  grid-template-rows: 60px 1fr;
+  grid-template-columns: 2fr 10fr;
+}
+
+.header {
+  grid-area: header;
+  background-color: bisque;
+  img {
+    width: 70px;
+  }
+}
+
+.nav {
+  grid-area: nav;
+  background-color: antiquewhite;
+}
+
+.content {
+  grid-area: content;
+  background-color: blanchedalmond;
+}
