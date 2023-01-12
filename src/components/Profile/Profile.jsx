@@ -1,8 +1,9 @@
 import React from "react";
+import classes from "./Profile.module.scss";
 
 const Profile = () => {
   return (
-    <div className="content">
+    <div className={classes.content}>
       <div>
         <img
           alt="profile-header"
@@ -13,11 +14,12 @@ const Profile = () => {
       <div>ava + description</div>
       <div>
         my posts
-        <div>new posts</div>
-        <div>post 1</div>
-        <div>post 2</div>
+        <div>new post</div>
+        <div>
+          <div>post 1</div>
+          <div>post 2</div>
+        </div>
       </div>
-      <div>my posts</div>
     </div>
   );
 };

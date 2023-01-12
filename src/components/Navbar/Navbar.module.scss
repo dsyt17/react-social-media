@@ -1,0 +1,26 @@
+.nav {
+  grid-area: nav;
+  background-color: antiquewhite;
+  padding-top: 20px;
+  padding-left: 20px;
+  padding-right: 25px;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  padding: 5px 5px;
+  & a {
+    text-decoration: none;
+    // margin-top: 5px;
+    width: auto;
+    color: coral;
+    font-size: 1.5rem;
+    // border: 2px solid rgb(218, 118, 118);
+  }
+
+  &:hover {
+    background-color: aliceblue;
+    border-radius: 5px;
+  }
+}
