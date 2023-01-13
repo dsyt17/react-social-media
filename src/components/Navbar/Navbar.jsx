@@ -13,31 +13,31 @@ const Navbar = () => {
   return (
     <nav className={classes.nav}>
       <div className={classes.item}>
-        <Link to="/">
+        <Link to="/profile">
           <ProfileIcon />
           <span>Profile</span>
         </Link>
       </div>
       <div className={classes.item}>
-        <Link to="/">
+        <Link to="/messages">
           <MessageIcon />
           <span>Messages</span>
         </Link>
       </div>
       <div className={classes.item}>
-        <Link to="/">
+        <Link to="/news">
           <NewsIcon />
           <span>News</span>{" "}
         </Link>
       </div>
       <div className={classes.item}>
-        <Link to="/">
+        <Link to="/music">
           <MusicIcon />
           <span>Music</span>
         </Link>
       </div>
       <div className={classes.item}>
-        <Link to="/">
+        <Link to="/settings">
           <SettingsIcon />
           <span>Settings</span>
         </Link>

@@ -4,7 +4,7 @@ import classes from "./Profile.module.scss";
 
 const Profile = () => {
   return (
-    <div className={classes.content}>
+    <div>
       <div>
         <img
           alt="profile-header"

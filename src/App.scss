@@ -6,7 +6,7 @@ body {
 .app-wrapper {
   display: grid;
   width: 1200px;
-  height: 100vh;
+  min-height: 100vh;
   margin: 0 auto;
   grid-template-areas:
     "header header"
@@ -16,4 +16,9 @@ body {
   grid-template-columns: 2fr 10fr;
 
   font-family: sans-serif;
+}
+
+.app-wrapper-content {
+  grid-area: content;
+  background-color: blanchedalmond;
 }
