@@ -1,4 +1,5 @@
 import React from "react";
+import MyPosts from "./MyPosts/MyPosts";
 import classes from "./Profile.module.scss";
 
 const Profile = () => {
@@ -12,14 +13,7 @@ const Profile = () => {
         />
       </div>
       <div>ava + description</div>
-      <div>
-        my posts
-        <div>new post</div>
-        <div>
-          <div>post 1</div>
-          <div>post 2</div>
-        </div>
-      </div>
+      <MyPosts />
     </div>
   );
 };
