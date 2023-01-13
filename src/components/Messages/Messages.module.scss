@@ -1,0 +1,35 @@
+.dialogs {
+  display: grid;
+  grid-template-columns: 2fr 10fr;
+}
+
+.dialogs__items {
+  padding: 10px;
+
+  .active {
+    color: rgb(237, 25, 25);
+  }
+}
+
+.dialog {
+  //   border: 2px solid white;
+  //   padding: 5px;
+  & a {
+    display: block;
+    text-decoration: none;
+    // background-color: red;
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+
+    &:hover {
+      font-size: 1.3rem;
+    }
+  }
+}
+
+.chat {
+  padding: 10px;
+}
+
+.message {
+}

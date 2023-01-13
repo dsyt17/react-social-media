@@ -1,4 +1,4 @@
-// import { Navigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import Messages from "../components/Messages/Messages";
 import Profile from "../components/Profile/Profile";
 import News from "../components/News/News";
@@ -9,11 +9,10 @@ import ErrorComponent from "../components/404/ErrorComponent";
 export const routes = [
   { path: "/profile", element: <Profile /> },
   { path: "/messages", element: <Messages /> },
+  { path: "/messages/:id", element: <Messages /> },
   { path: "/news", element: <News /> },
   { path: "/music", element: <Music /> },
   { path: "/settings", element: <Settings /> },
-
+  { path: "/", element: <Navigate to="/profile" replace /> },
   { path: "/*", element: <ErrorComponent /> },
-  //   { path: "/", element: <Posts /> },
-  //   { path: "/*", element: <Navigate to="/profile" replace /> },
 ];

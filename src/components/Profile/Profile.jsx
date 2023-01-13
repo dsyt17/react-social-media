@@ -1,18 +1,12 @@
 import React from "react";
 import MyPosts from "./MyPosts/MyPosts";
 import classes from "./Profile.module.scss";
+import ProfileInfo from "./ProfileInfo/ProfileInfo";
 
 const Profile = () => {
   return (
     <div>
-      <div>
-        <img
-          alt="profile-header"
-          height={100}
-          src="https://w-dog.ru/wallpapers/12/1/511160664822260/babochek-belye-kamni-krasochnye-dizajn-marika-babochki-kamni.jpg"
-        />
-      </div>
-      <div>ava + description</div>
+      <ProfileInfo />
       <MyPosts />
     </div>
   );
