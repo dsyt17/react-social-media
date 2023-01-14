@@ -1,18 +1,7 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import classes from "./Messages.module.scss";
-
-const DialogItem = ({ id, name }) => {
-  return (
-    <div className={classes.dialog}>
-      <Link to={`/messages/${id}`}>{name}</Link>
-    </div>
-  );
-};
-
-const Message = ({ message }) => {
-  return <div className={classes.message}>{message}</div>;
-};
+import DialogItem from "./DialogItem";
+import MessageItem from "./MessageItem";
 
 const Messages = () => {
   const dialogsData = [
@@ -40,7 +29,7 @@ const Messages = () => {
       </div>
       <div className={classes.chat}>
         {messagesData.map((e, i) => (
-          <Message key={i} id={e.id} message={e.message} />
+          <MessageItem key={i} id={e.id} message={e.message} />
         ))}
       </div>
     </div>
