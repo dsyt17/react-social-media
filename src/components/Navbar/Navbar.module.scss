@@ -1,6 +1,6 @@
 .nav {
   grid-area: nav;
-  background-color: antiquewhite;
+  background-color: #2f2fa2;
   padding-top: 20px;
   padding-left: 20px;
   padding-right: 25px;
@@ -15,13 +15,13 @@
     // margin-top: 5px;
     display: block;
     width: auto;
-    color: coral;
+    color: whitesmoke;
     font-size: 1.5rem;
     // border: 2px solid rgb(218, 118, 118);
   }
 
   &:hover {
-    background-color: aliceblue;
+    background-color: #242582;
     border-radius: 5px;
   }
 }
