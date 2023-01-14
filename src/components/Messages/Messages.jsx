@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import classes from "./Messages.module.scss";
 import DialogItem from "./DialogItem";
 import MessageItem from "./MessageItem";

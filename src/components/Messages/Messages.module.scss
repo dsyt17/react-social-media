@@ -12,8 +12,6 @@
 }
 
 .dialog {
-  //   border: 2px solid white;
-  //   padding: 5px;
   & a {
     display: block;
     text-decoration: none;
@@ -21,9 +19,9 @@
     font-size: 1.2rem;
     margin-bottom: 5px;
 
-    &:hover {
-      font-size: 1.3rem;
-    }
+    // &:hover {
+    //   font-size: 1.3rem;
+    // }
   }
 }
 
