@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createRef } from "react";
 import classes from "./MyPosts.module.scss";
 import Post from "./Post/Post";
 
@@ -11,14 +11,22 @@ const MyPosts = () => {
     { id: 5, user: "Igor", text: "post5", likesCount: 112 },
   ];
 
+  const newPostElement = createRef();
+
+  const addPost = () => {
+    const text = newPostElement.current.value;
+    postsData.push({ id: 5, user: "Igor", text, likesCount: 0 });
+    console.log(postsData);
+  };
+
   return (
     <div className={classes.content}>
       <h3>My posts</h3>
       <div>
         <div>
-          <textarea></textarea>
+          <textarea ref={newPostElement} />
         </div>
-        <button>Add Post</button>
+        <button onClick={addPost}>Add Post</button>
       </div>
       <div className={classes.posts}>
         {postsData.map((e, i) => (

@@ -1,5 +1,4 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { createRef } from "react";
 import classes from "./Messages.module.scss";
 import DialogItem from "./DialogItem";
 import MessageItem from "./MessageItem";
@@ -21,6 +20,13 @@ const Messages = () => {
     { id: 5, message: "i Vasya shiiit" },
   ];
 
+  const newMessage = createRef();
+
+  const sendMessage = () => {
+    const message = newMessage.current.value;
+    alert(message);
+  };
+
   return (
     <div className={classes.dialogs}>
       <div className={classes.dialogs__items}>
@@ -29,9 +35,19 @@ const Messages = () => {
         ))}
       </div>
       <div className={classes.chat}>
-        {messagesData.map((e, i) => (
-          <MessageItem key={i} id={e.id} message={e.message} />
-        ))}
+        <div>
+          {messagesData.map((e, i) => (
+            <MessageItem key={i} id={e.id} message={e.message} />
+          ))}
+        </div>
+        <div>
+          <div>
+            <textarea ref={newMessage} />
+          </div>
+          <div>
+            <button onClick={sendMessage}>Send</button>
+          </div>
+        </div>
       </div>
     </div>
   );
