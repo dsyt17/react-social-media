@@ -24,7 +24,8 @@ const Messages = () => {
 
   const sendMessage = () => {
     const message = newMessage.current.value;
-    alert(message);
+    messagesData.push({ id: 99, message });
+    console.log(messagesData);
   };
 
   return (
