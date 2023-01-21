@@ -6,6 +6,7 @@ import {
   NewsIcon,
   ProfileIcon,
   SettingsIcon,
+  UsersIcon,
 } from "../Icons/Icons";
 import classes from "./Navbar.module.scss";
 
@@ -19,15 +20,21 @@ const Navbar = () => {
         </Link>
       </div>
       <div className={classes.item}>
+        <Link to="/news">
+          <NewsIcon />
+          <span>News</span>
+        </Link>
+      </div>
+      <div className={classes.item}>
         <Link to="/messages">
           <MessageIcon />
           <span>Messages</span>
         </Link>
       </div>
       <div className={classes.item}>
-        <Link to="/news">
-          <NewsIcon />
-          <span>News</span>{" "}
+        <Link to="/users">
+          <UsersIcon />
+          <span>Users</span>
         </Link>
       </div>
       <div className={classes.item}>
