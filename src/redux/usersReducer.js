@@ -1,42 +1,36 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
 
 const initialState = {
-  users: [
-    {
-      id: 1,
-      imgSrc:
-        "https://avatars.mds.yandex.net/i?id=0393e6b5b8874243329b425b83cc44b074caef0d-7086266-images-thumbs&n=13&exp=1",
-      fullName: "Igor",
-      status: "Im God",
-      location: { city: "Syktyvkar", country: "Russia" },
-      followed: true,
-    },
-    {
-      id: 1,
-      imgSrc:
-        "https://avatars.mds.yandex.net/i?id=0393e6b5b8874243329b425b83cc44b074caef0d-7086266-images-thumbs&n=13&exp=1",
-      fullName: "Igor",
-      status: "Im God",
-      location: { city: "Syktyvkar", country: "Russia" },
-      followed: false,
-    },
-    {
-      id: 1,
-      imgSrc:
-        "https://avatars.mds.yandex.net/i?id=0393e6b5b8874243329b425b83cc44b074caef0d-7086266-images-thumbs&n=13&exp=1",
-      fullName: "Igor",
-      status: "Im God",
-      location: { city: "Syktyvkar", country: "Russia" },
-      followed: true,
-    },
-  ],
+  users: [],
+  loading: true,
+  usersCount: 10,
+  usersOnPage: 10,
 };
+
+export const fetchUsers = createAsyncThunk("users/fetchUsers", async (page) => {
+  const response = await axios.get(
+    `https://social-network.samuraijs.com/api/1.0/users/?page=${page}&count=${10}`
+  );
+
+  return response.data;
+});
 
 const usersSlice = createSlice({
   name: "users",
   initialState,
   reducers: {},
-  extraReducers: {},
+  extraReducers: (builder) => {
+    builder.addCase(fetchUsers.fulfilled, (state, action) => {
+      state.users = [];
+      state.users.push(action.payload);
+      state.usersCount = action.payload.totalCount;
+      state.loading = false;
+    });
+    builder.addCase(fetchUsers.pending, (state, action) => {
+      state.loading = true;
+    });
+  },
 });
 
 export const usersReducer = usersSlice.reducer;
