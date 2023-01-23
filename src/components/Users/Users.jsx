@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { fetchUsers } from "../../redux/usersReducer";
 import Loader from "../common/Loader/Loader";
 import classes from "./Users.module.scss";
@@ -49,11 +50,13 @@ const Users = () => {
           <div key={i}>
             <span>
               <div>
-                <img
-                  alt="avatar"
-                  src={user.photos.small ? user.photos.small : "/user.png"}
-                  className={classes.avatar}
-                />
+                <Link to={`/profile/${user.id}`}>
+                  <img
+                    alt="avatar"
+                    src={user.photos.small ? user.photos.small : "/user.png"}
+                    className={classes.avatar}
+                  />
+                </Link>
               </div>
               <div>
                 <span>

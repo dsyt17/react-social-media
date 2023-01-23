@@ -9,6 +9,7 @@ import Users from "../components/Users/Users";
 
 export const routes = [
   { path: "/profile", element: <Profile /> },
+  { path: "/profile/:id", element: <Profile /> },
   { path: "/messages", element: <Messages /> },
   { path: "/messages/:id", element: <Messages /> },
   { path: "/news", element: <News /> },
