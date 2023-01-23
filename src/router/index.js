@@ -16,6 +16,6 @@ export const routes = [
   { path: "/music", element: <Music /> },
   { path: "/users", element: <Users /> },
   { path: "/settings", element: <Settings /> },
-  { path: "/", element: <Navigate to="/profile" replace /> },
+  { path: "/", element: <Navigate to="/news" replace /> },
   { path: "/*", element: <ErrorComponent /> },
 ];
