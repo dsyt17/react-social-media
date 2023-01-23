@@ -3,7 +3,7 @@ import axios from "axios";
 
 const initialState = {
   users: [],
-  loading: true,
+  isLoading: true,
   usersCount: 10,
   usersOnPage: 10,
 };
@@ -25,10 +25,10 @@ const usersSlice = createSlice({
       state.users = [];
       state.users.push(action.payload);
       state.usersCount = action.payload.totalCount;
-      state.loading = false;
+      state.isLoading = false;
     });
     builder.addCase(fetchUsers.pending, (state, action) => {
-      state.loading = true;
+      state.isLoading = true;
     });
   },
 });

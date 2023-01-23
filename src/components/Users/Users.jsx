@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { useRef } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUsers } from "../../redux/usersReducer";
+import Loader from "../common/Loader/Loader";
 import classes from "./Users.module.scss";
 
 const Users = () => {
@@ -29,7 +29,7 @@ const Users = () => {
 
   return (
     <div>
-      <div>
+      <div className={classes.allPages}>
         {pagesArray.map((p, i) => (
           <span
             className={`${classes.pagination} ${
@@ -42,8 +42,8 @@ const Users = () => {
           </span>
         ))}
       </div>
-      {users.loading ? (
-        <div>Loading...</div>
+      {users.isLoading ? (
+        <Loader />
       ) : (
         users.users[0].items.map((user, i) => (
           <div key={i}>

@@ -7,7 +7,7 @@ import {
   ProfileIcon,
   SettingsIcon,
   UsersIcon,
-} from "../Icons/Icons";
+} from "../common/Icons/Icons";
 import classes from "./Navbar.module.scss";
 
 const Navbar = () => {
