@@ -2,6 +2,7 @@ import React from "react";
 import classes from "./ProfileInfo.module.scss";
 
 const ProfileInfo = (user) => {
+  const { photos, fullName } = user.user[0];
   return (
     <div>
       <div>
@@ -12,7 +13,12 @@ const ProfileInfo = (user) => {
           src="https://w-dog.ru/wallpapers/12/1/511160664822260/babochek-belye-kamni-krasochnye-dizajn-marika-babochki-kamni.jpg"
         />
       </div>
-      <div className={classes.profile_description}>{user.user[0].fullName}</div>
+      <img
+        alt="Avatar"
+        className={classes.avatar}
+        src={photos.large ? photos.large : "/user.png"}
+      />
+      <div className={classes.profile_description}>{fullName}</div>
     </div>
   );
 };

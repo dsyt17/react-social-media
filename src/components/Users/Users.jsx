@@ -2,7 +2,11 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { fetchUsers } from "../../redux/usersReducer";
+import {
+  fetchUsers,
+  followUser,
+  unfollowUser,
+} from "../../redux/slices/usersReducer";
 import Loader from "../common/Loader/Loader";
 import classes from "./Users.module.scss";
 
@@ -13,6 +17,7 @@ const Users = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
+    debugger;
     dispatch(fetchUsers(currentPage));
     pagesArray = getPagination();
   }, [currentPage]);
@@ -27,6 +32,12 @@ const Users = () => {
   };
 
   let pagesArray = getPagination();
+
+  const followUnfollowUser = (user) => {
+    user.followed
+      ? dispatch(unfollowUser(user.id))
+      : dispatch(followUser(user.id));
+  };
 
   return (
     <div>
@@ -60,7 +71,9 @@ const Users = () => {
               </div>
               <div>
                 <span>
-                  <button>{user.followed ? "Unfollow" : "Follow"}</button>
+                  <button onClick={() => followUnfollowUser(user)}>
+                    {user.followed ? "Unfollow" : "Follow"}
+                  </button>
                 </span>
               </div>
             </span>
