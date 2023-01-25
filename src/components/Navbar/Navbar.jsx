@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import {
   MessageIcon,
@@ -11,12 +12,20 @@ import {
 import classes from "./Navbar.module.scss";
 
 const Navbar = () => {
+  const currentUser = useSelector((state) => state.authMe);
+
   return (
     <nav className={classes.nav}>
       <div className={classes.item}>
-        <Link to="/profile">
+        <Link
+          to={
+            currentUser.isAuth
+              ? `/profile/${currentUser.user.data.id}`
+              : "/login"
+          }
+        >
           <ProfileIcon />
-          <span>Profile</span>
+          <span>{currentUser.isAuth ? "Profile" : "Login"}</span>
         </Link>
       </div>
       <div className={classes.item}>

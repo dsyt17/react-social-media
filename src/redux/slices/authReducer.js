@@ -9,7 +9,6 @@ const initialState = {
 
 export const fetchAuthMe = createAsyncThunk("authMe/fetchAuthMe", async () => {
   const response = await axios.get(`auth/me`);
-
   return response.data;
 });
 
@@ -21,7 +20,7 @@ const authSlice = createSlice({
     builder.addCase(fetchAuthMe.fulfilled, (state, action) => {
       state.user = action.payload;
       state.isLoading = false;
-      state.isAuth = true;
+      state.isAuth = action.payload.resultCode === 0 ? true : false;
     });
   },
 });

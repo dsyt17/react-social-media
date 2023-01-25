@@ -6,10 +6,12 @@ import Music from "../components/Music/Music";
 import Settings from "../components/Settings/Settings";
 import ErrorComponent from "../components/404/ErrorComponent";
 import Users from "../components/Users/Users";
+import Login from "../components/Login/Login";
 
 export const routes = [
   { path: "/profile", element: <Profile /> },
   { path: "/profile/:id", element: <Profile /> },
+  { path: "/login", element: <Login /> },
   { path: "/messages", element: <Messages /> },
   { path: "/messages/:id", element: <Messages /> },
   { path: "/news", element: <News /> },

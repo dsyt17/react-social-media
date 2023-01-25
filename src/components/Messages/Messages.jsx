@@ -3,14 +3,20 @@ import classes from "./Messages.module.scss";
 import DialogItem from "./DialogItem";
 import MessageItem from "./MessageItem";
 import { useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
 
 const Messages = () => {
   const newMessage = createRef();
   const dialogsData = useSelector((state) => state.dialogs);
+  const isAuth = useSelector((state) => state.authMe.isAuth);
 
   const sendMessage = () => {
     const message = newMessage.current.value;
   };
+
+  if (isAuth === false) {
+    return <Navigate to="/login" />;
+  }
 
   return (
     <div className={classes.dialogs}>
