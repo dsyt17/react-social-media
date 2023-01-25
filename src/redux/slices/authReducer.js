@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import axios from "../../axios";
 
 const initialState = {
   user: null,
@@ -8,12 +8,7 @@ const initialState = {
 };
 
 export const fetchAuthMe = createAsyncThunk("authMe/fetchAuthMe", async () => {
-  const response = await axios.get(
-    `https://social-network.samuraijs.com/api/1.0/auth/me`,
-    {
-      withCredentials: true,
-    }
-  );
+  const response = await axios.get(`auth/me`);
 
   return response.data;
 });

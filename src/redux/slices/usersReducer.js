@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import axios from "../../axios";
 
 const initialState = {
   users: [],
@@ -11,33 +11,14 @@ const initialState = {
 };
 
 export const fetchUsers = createAsyncThunk("users/fetchUsers", async (page) => {
-  const response = await axios.get(
-    `https://social-network.samuraijs.com/api/1.0/users/?page=${page}&count=${10}`,
-    {
-      withCredentials: true,
-      headers: {
-        "API-KEY": "fecf5586-aebc-48e0-9784-e1c7e9bac676",
-      },
-    }
-  );
-
+  const response = await axios.get(`users/?page=${page}&count=${10}`);
   return response.data;
 });
 
 export const followUser = createAsyncThunk(
   "users/followUser",
   async (userId) => {
-    const response = await axios.post(
-      `https://social-network.samuraijs.com/api/1.0/follow/${userId}`,
-      {},
-      {
-        withCredentials: true,
-        headers: {
-          "API-KEY": "fecf5586-aebc-48e0-9784-e1c7e9bac676",
-        },
-      }
-    );
-
+    const response = await axios.post(`follow/${userId}`, {});
     return response.data;
   }
 );
@@ -45,15 +26,7 @@ export const followUser = createAsyncThunk(
 export const unfollowUser = createAsyncThunk(
   "users/unfollowUser",
   async (userId) => {
-    const response = await axios.delete(
-      `https://social-network.samuraijs.com/api/1.0/follow/${userId}`,
-      {
-        withCredentials: true,
-        headers: {
-          "API-KEY": "fecf5586-aebc-48e0-9784-e1c7e9bac676",
-        },
-      }
-    );
+    const response = await axios.delete(`follow/${userId}`);
 
     return response.data;
   }
@@ -62,9 +35,7 @@ export const unfollowUser = createAsyncThunk(
 export const fetchUserById = createAsyncThunk(
   "users/fetchUserById",
   async (id) => {
-    const response = await axios.get(
-      `https://social-network.samuraijs.com/api/1.0/profile/${id}`
-    );
+    const response = await axios.get(`profile/${id}`);
     return response.data;
   }
 );
