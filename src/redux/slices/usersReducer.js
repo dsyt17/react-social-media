@@ -8,6 +8,7 @@ const initialState = {
   isLoadingUser: true,
   usersCount: 10,
   usersOnPage: 10,
+  followingInProgress: [],
 };
 
 export const fetchUsers = createAsyncThunk("users/fetchUsers", async (page) => {
@@ -27,7 +28,6 @@ export const unfollowUser = createAsyncThunk(
   "users/unfollowUser",
   async (userId) => {
     const response = await axios.delete(`follow/${userId}`);
-
     return response.data;
   }
 );
@@ -45,6 +45,7 @@ const usersSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
+    // Get users
     builder.addCase(fetchUsers.fulfilled, (state, action) => {
       state.users = [];
       state.users.push(action.payload);
@@ -54,6 +55,7 @@ const usersSlice = createSlice({
     builder.addCase(fetchUsers.pending, (state) => {
       state.isLoading = true;
     });
+    // Get user by ID
     builder.addCase(fetchUserById.fulfilled, (state, action) => {
       state.userById = [];
       state.userById.push(action.payload);
@@ -66,6 +68,29 @@ const usersSlice = createSlice({
     builder.addCase(fetchUserById.rejected, (state) => {
       state.userById = [{ fullName: "TestUser", photos: { small: "" } }];
       state.isLoadingUser = false;
+    });
+    // Follow / Unfollow
+    builder.addCase(followUser.pending, (state, action) => {
+      state.followingInProgress = [
+        ...state.followingInProgress,
+        action.meta.arg,
+      ];
+    });
+    builder.addCase(followUser.fulfilled, (state, action) => {
+      state.followingInProgress = state.followingInProgress.filter(
+        (id) => id !== action.meta.arg
+      );
+    });
+    builder.addCase(unfollowUser.pending, (state, action) => {
+      state.followingInProgress = [
+        ...state.followingInProgress,
+        action.meta.arg,
+      ];
+    });
+    builder.addCase(unfollowUser.fulfilled, (state, action) => {
+      state.followingInProgress = state.followingInProgress.filter(
+        (id) => id !== action.meta.arg
+      );
     });
   },
 });

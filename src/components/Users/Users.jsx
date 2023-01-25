@@ -17,7 +17,6 @@ const Users = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    debugger;
     dispatch(fetchUsers(currentPage));
     pagesArray = getPagination();
   }, [currentPage]);
@@ -34,9 +33,10 @@ const Users = () => {
   let pagesArray = getPagination();
 
   const followUnfollowUser = (user) => {
+    const userId = user.id;
     user.followed
-      ? dispatch(unfollowUser(user.id))
-      : dispatch(followUser(user.id));
+      ? dispatch(unfollowUser(userId))
+      : dispatch(followUser(userId));
   };
 
   return (
@@ -71,7 +71,14 @@ const Users = () => {
               </div>
               <div>
                 <span>
-                  <button onClick={() => followUnfollowUser(user)}>
+                  <button
+                    onClick={() => followUnfollowUser(user)}
+                    disabled={
+                      users.followingInProgress.some((id) => id === user.id)
+                        ? true
+                        : false
+                    }
+                  >
                     {user.followed ? "Unfollow" : "Follow"}
                   </button>
                 </span>
