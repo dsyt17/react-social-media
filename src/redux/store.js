@@ -9,7 +9,7 @@ const store = configureStore({
   reducer: {
     profile: profileReducer,
     dialogs: dialogsReducer,
-    sidebar: sidebarReducer,
+    // sidebar: sidebarReducer,
     users: usersReducer,
     authMe: authReducer,
   },

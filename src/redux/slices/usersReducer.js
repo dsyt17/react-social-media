@@ -65,10 +65,6 @@ const usersSlice = createSlice({
       state.userById = [];
       state.isLoadingUser = true;
     });
-    // builder.addCase(fetchUserById.rejected, (state) => {
-    //   state.userById = [{ fullName: "TestUser", photos: { small: "" } }];
-    //   state.isLoadingUser = false;
-    // });
     // Follow / Unfollow
     builder.addCase(followUser.pending, (state, action) => {
       state.followingInProgress = [

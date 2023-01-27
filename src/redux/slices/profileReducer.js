@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "../../axios";
 
 const ADD_POST = "ADD-POST";
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT-POST";
@@ -12,34 +13,38 @@ const initialState = {
     { id: 5, user: "Igor", text: "post5", likesCount: 112 },
   ],
   newPostText: "",
+  status: "",
+  isLoading: true,
 };
 
-// const profileReducer = (state = initialState, action) => {
-//   switch (action.type) {
-//     case ADD_POST:
-//       const newPost = {
-//         id: 10,
-//         message: state.newPostText,
-//         likesCount: 0,
-//       };
-//       state.posts.push(newPost);
-//       state.newPostText = "";
-//       return state;
+export const fetchUserStatus = createAsyncThunk(
+  "users/fetchUserStatus",
+  async (id) => {
+    const response = await axios.get(`profile/status/${id}`);
+    return response.data;
+  }
+);
 
-//     case UPDATE_NEW_POST_TEXT:
-//       state.newPostText = action.newText;
-//       return state;
-
-//     default:
-//       return state;
-//   }
-// };
+export const updateUserStatus = createAsyncThunk(
+  "users/updateUserStatus",
+  async (status) => {
+    const response = await axios.put(`profile/status`, {
+      status,
+    });
+    return response.data;
+  }
+);
 
 const profileSlice = createSlice({
   name: "posts",
   initialState,
   reducers: {},
-  extraReducers: {},
+  extraReducers: (builder) => {
+    builder.addCase(fetchUserStatus.fulfilled, (state, action) => {
+      state.status = action.payload;
+      state.isLoading = false;
+    });
+  },
 });
 
 export const profileReducer = profileSlice.reducer;

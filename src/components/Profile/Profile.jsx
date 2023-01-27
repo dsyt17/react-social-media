@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useParams } from "react-router-dom";
+import { fetchUserStatus } from "../../redux/slices/profileReducer";
 import { fetchUserById } from "../../redux/slices/usersReducer";
 import Loader from "../common/Loader/Loader";
 import MyPosts from "./MyPosts/MyPosts";
@@ -10,12 +11,13 @@ import ProfileInfo from "./ProfileInfo/ProfileInfo";
 const Profile = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.users);
-  const currentUser = useSelector((state) => state.authMe);
+  const profileInfo = useSelector((state) => state.profile);
 
   let { id } = useParams();
 
   useEffect(() => {
     dispatch(fetchUserById(id));
+    dispatch(fetchUserStatus(id));
   }, []);
 
   // if (currentUser.isAuth === false) {
@@ -28,7 +30,7 @@ const Profile = () => {
         <Loader />
       ) : (
         <>
-          <ProfileInfo user={user.userById} />
+          <ProfileInfo user={user.userById} status={profileInfo.status} />
           <MyPosts />
         </>
       )}

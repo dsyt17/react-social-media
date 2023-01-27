@@ -14,7 +14,7 @@ const Messages = () => {
     const message = newMessage.current.value;
   };
 
-  if (isAuth === false) {
+  if (!isAuth) {
     return <Navigate to="/login" />;
   }
 
