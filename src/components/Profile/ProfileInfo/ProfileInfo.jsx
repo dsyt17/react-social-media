@@ -1,8 +1,10 @@
 import React from "react";
-import { createRef } from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { updateUserStatus } from "../../../redux/slices/profileReducer";
+import {
+  fetchUserStatus,
+  updateUserStatus,
+} from "../../../redux/slices/profileReducer";
 import classes from "./ProfileInfo.module.scss";
 
 const ProfileInfo = (props) => {
@@ -12,6 +14,7 @@ const ProfileInfo = (props) => {
   const [status, setStatus] = useState(props.status);
 
   const dispatch = useDispatch();
+  // dispatch(fetchUserStatus(userId));
 
   const updateStatus = (e) => {
     setStatus(e.currentTarget.value);
