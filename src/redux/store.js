@@ -4,6 +4,7 @@ import sidebarReducer from "./slices/sidebarReducer";
 import { usersReducer } from "./slices/usersReducer";
 import { configureStore } from "@reduxjs/toolkit";
 import { authReducer } from "./slices/authReducer";
+import { reducer as formReducer } from "redux-form";
 
 const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ const store = configureStore({
     // sidebar: sidebarReducer,
     users: usersReducer,
     authMe: authReducer,
+    form: formReducer,
   },
 });
 

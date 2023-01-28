@@ -4,14 +4,31 @@ import DialogItem from "./DialogItem";
 import MessageItem from "./MessageItem";
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
+import { Field, reduxForm } from "redux-form";
+
+const MessageForm = (props) => {
+  return (
+    <form onSubmit={props.handleSubmit}>
+      <div>
+        <Field type="text" name="NewMessage" component={"textarea"} />
+      </div>
+      <div>
+        <button>Send</button>
+      </div>
+    </form>
+  );
+};
+
+const MessageReduxForm = reduxForm({
+  form: "messagesForm",
+})(MessageForm);
 
 const Messages = () => {
-  const newMessage = createRef();
   const dialogsData = useSelector((state) => state.dialogs);
   const isAuth = useSelector((state) => state.authMe.isAuth);
 
-  const sendMessage = () => {
-    const message = newMessage.current.value;
+  const onSubmit = (formData) => {
+    console.log(formData);
   };
 
   if (!isAuth) {
@@ -31,14 +48,7 @@ const Messages = () => {
             <MessageItem key={i} id={e.id} message={e.message} />
           ))}
         </div>
-        <div>
-          <div>
-            <textarea ref={newMessage} />
-          </div>
-          <div>
-            <button onClick={sendMessage}>Send</button>
-          </div>
-        </div>
+        <MessageReduxForm onSubmit={onSubmit} />
       </div>
     </div>
   );
