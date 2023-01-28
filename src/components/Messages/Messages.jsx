@@ -5,12 +5,24 @@ import MessageItem from "./MessageItem";
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 import { Field, reduxForm } from "redux-form";
+import {
+  maxLengthCreator,
+  requiredField,
+} from "../../utils/validators/validators";
+import { Textarea } from "../common/FormsControls/FormsControls";
+
+const maxLen100 = maxLengthCreator(100);
 
 const MessageForm = (props) => {
   return (
     <form onSubmit={props.handleSubmit}>
       <div>
-        <Field type="text" name="NewMessage" component={"textarea"} />
+        <Field
+          type="text"
+          name="NewMessage"
+          validate={[requiredField, maxLen100]}
+          component={Textarea}
+        />
       </div>
       <div>
         <button>Send</button>
