@@ -1,0 +1,25 @@
+.loginWrapper {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: auto;
+}
+
+.form {
+  width: 200px;
+}
+
+.rememberMe {
+  display: flex;
+  margin: 7px 0;
+  align-items: center;
+}
+
+.loginBtn {
+  width: 100%;
+  background-color: #2f2fa2;
+  color: whitesmoke;
+  border: 1px solid #2f2fa2;
+  border-radius: 5px;
+  font-size: 1.3rem;
+}

@@ -2,18 +2,13 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 import { Field, reduxForm } from "redux-form";
-import {
-  maxLengthCreator,
-  requiredField,
-} from "../../utils/validators/validators";
+import { requiredField } from "../../utils/validators/validators";
 import { Input } from "../common/FormsControls/FormsControls";
 import classes from "./Login.module.scss";
 
-const maxLen30 = maxLengthCreator(30);
-
 const LoginForm = (props) => {
   return (
-    <form onSubmit={props.handleSubmit}>
+    <form onSubmit={props.handleSubmit} className={classes.form}>
       <div>
         <Field
           type="text"
@@ -32,12 +27,12 @@ const LoginForm = (props) => {
           validate={[requiredField]}
         />
       </div>
-      <div>
-        <Field type="checkbox" name="RememberMe" component={Input} /> Remember
-        me
+      <div className={classes.rememberMe}>
+        <Field type="checkbox" name="RememberMe" component={Input} />
+        Remember me
       </div>
       <div>
-        <button>Login</button>
+        <button className={classes.loginBtn}>Login</button>
       </div>
     </form>
   );
@@ -57,7 +52,7 @@ const Login = () => {
     return <Navigate to="/messages" />;
   }
   return (
-    <div>
+    <div className={classes.loginWrapper}>
       <h1>Login</h1>
       <LoginReduxForm onSubmit={onSubmit} />
     </div>

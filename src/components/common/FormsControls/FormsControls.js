@@ -36,7 +36,7 @@ export const Input = ({ input, meta, ...props }) => {
       className={classses.form_control + " " + (error ? classses.error : "")}
     >
       <div>
-        <input {...input} {...props} />
+        <input className={classses.input} {...input} {...props} />
       </div>
       {error && <span>{meta.error}</span>}
     </div>
