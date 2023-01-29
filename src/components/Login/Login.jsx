@@ -1,7 +1,9 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 import { Field, reduxForm } from "redux-form";
+import useRedirect from "../../hooks/useRedirect";
+import { fetchLogin } from "../../redux/slices/authReducer";
 import { requiredField } from "../../utils/validators/validators";
 import { Input } from "../common/FormsControls/FormsControls";
 import classes from "./Login.module.scss";
@@ -12,8 +14,8 @@ const LoginForm = (props) => {
       <div>
         <Field
           type="text"
-          name="Login"
-          placeholder="Login"
+          name="email"
+          placeholder="Email"
           component={Input}
           validate={[requiredField]}
         />
@@ -21,18 +23,25 @@ const LoginForm = (props) => {
       <div>
         <Field
           type="text"
-          name="Password"
+          name="password"
           placeholder="Password"
           component={Input}
           validate={[requiredField]}
         />
       </div>
       <div className={classes.rememberMe}>
-        <Field type="checkbox" name="RememberMe" component={Input} />
+        <Field type="checkbox" name="rememberMe" component={Input} />
         Remember me
       </div>
       <div>
-        <button className={classes.loginBtn}>Login</button>
+        <button
+          disabled={props.disabled}
+          className={`${classes.loginBtn} ${
+            props.disabled ? classes.disabled : ""
+          }`}
+        >
+          Login
+        </button>
       </div>
     </form>
   );
@@ -43,18 +52,22 @@ const LoginReduxForm = reduxForm({
 })(LoginForm);
 
 const Login = () => {
-  const isAuth = useSelector((state) => state.authMe.isAuth);
+  const { isAuth, isLoading } = useSelector((state) => state.authMe);
+  const dispatch = useDispatch();
+
   const onSubmit = (formData) => {
-    console.log(formData);
+    dispatch(fetchLogin(formData));
   };
 
-  if (isAuth === true) {
+  // useRedirect(isAuth, "messages");
+  if (isAuth) {
     return <Navigate to="/messages" />;
   }
+
   return (
     <div className={classes.loginWrapper}>
       <h1>Login</h1>
-      <LoginReduxForm onSubmit={onSubmit} />
+      <LoginReduxForm onSubmit={onSubmit} disabled={isLoading} />
     </div>
   );
 };

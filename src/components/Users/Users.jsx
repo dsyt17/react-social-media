@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import { useRef } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import useScroll from "../../hooks/useScroll";
 import {
   fetchUsers,
   followUser,
@@ -39,8 +41,16 @@ const Users = () => {
       : dispatch(followUser(userId));
   };
 
+  const parentRef = useRef();
+  const childRef = useRef();
+
+  // const intersection = useScroll(parentRef, childRef, () => {
+  //   dispatch(fetchUsers(currentPage));
+  //   setCurrentPage(currentPage + 1);
+  // });
+
   return (
-    <div>
+    <div ref={parentRef}>
       <div className={classes.allPages}>
         {pagesArray.map((p, i) => (
           <span
@@ -96,6 +106,7 @@ const Users = () => {
           </div>
         ))
       )}
+      {/* <div ref={childRef} style={{ height: 50, background: "red" }} /> */}
     </div>
   );
 };

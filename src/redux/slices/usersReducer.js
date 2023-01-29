@@ -6,13 +6,13 @@ const initialState = {
   userById: [],
   isLoading: true,
   isLoadingUser: true,
-  usersCount: 10,
-  usersOnPage: 10,
+  usersCount: 20,
+  usersOnPage: 20,
   followingInProgress: [],
 };
 
 export const fetchUsers = createAsyncThunk("users/fetchUsers", async (page) => {
-  const response = await axios.get(`users/?page=${page}&count=${10}`);
+  const response = await axios.get(`users/?page=${page}&count=${20}`);
   return response.data;
 });
 

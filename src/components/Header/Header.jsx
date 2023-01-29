@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAuthMe } from "../../redux/slices/authReducer";
+import { fetchAuthMe, fetchLogout } from "../../redux/slices/authReducer";
 import classes from "./Header.module.scss";
 
 const Header = () => {
@@ -11,11 +11,16 @@ const Header = () => {
     dispatch(fetchAuthMe());
   }, []);
 
+  const logout = () => {
+    dispatch(fetchLogout());
+  };
+
   return (
     <header className={classes.header}>
       <img src="./temp-logo.png" alt="logo" />
       <div className={classes.currentUser}>
         {currentUser.isAuth ? currentUser.user.data.login : ""}
+        {currentUser.isAuth && <button onClick={logout}>Logout</button>}
       </div>
     </header>
   );
