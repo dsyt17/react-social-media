@@ -19,7 +19,9 @@ const Header = () => {
     <header className={classes.header}>
       <img src="./temp-logo.png" alt="logo" />
       <div className={classes.currentUser}>
-        {currentUser.isAuth ? currentUser.user.data.login : ""}
+        {currentUser.isAuth && currentUser.user
+          ? currentUser.user.data.login
+          : ""}
         {currentUser.isAuth && <button onClick={logout}>Logout</button>}
       </div>
     </header>

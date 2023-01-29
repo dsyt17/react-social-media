@@ -5,6 +5,7 @@ const initialState = {
   user: null,
   isAuth: false,
   isLoading: true,
+  loginError: false,
 };
 
 export const fetchAuthMe = createAsyncThunk("authMe/fetchAuthMe", async () => {
@@ -43,7 +44,13 @@ const authSlice = createSlice({
       state.isLoading = true;
     });
     builder.addCase(fetchLogin.fulfilled, (state, action) => {
-      state.isAuth = action.payload.resultCode === 0 ? true : false;
+      state.loginError = false;
+      if (action.payload.resultCode === 0) {
+        state.isAuth = true;
+      } else {
+        state.isAuth = false;
+        state.loginError = true;
+      }
       state.isLoading = false;
     });
     builder.addCase(fetchLogout.fulfilled, (state, action) => {

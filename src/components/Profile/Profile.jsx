@@ -1,8 +1,11 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useParams } from "react-router-dom";
-import { fetchUserStatus } from "../../redux/slices/profileReducer";
-import { fetchUserById } from "../../redux/slices/usersReducer";
+import {
+  clearUserStatus,
+  fetchUserStatus,
+} from "../../redux/slices/profileReducer";
+import { clearUserById, fetchUserById } from "../../redux/slices/usersReducer";
 import Loader from "../common/Loader/Loader";
 import MyPosts from "./MyPosts/MyPosts";
 import classes from "./Profile.module.scss";
@@ -18,6 +21,12 @@ const Profile = () => {
   useEffect(() => {
     dispatch(fetchUserById(id));
     dispatch(fetchUserStatus(id));
+
+    return () => {
+      dispatch(clearUserById());
+      dispatch(clearUserStatus());
+      console.log("profile unmount");
+    };
   }, []);
 
   // if (currentUser.isAuth === false) {

@@ -20,7 +20,7 @@ const Navbar = () => {
         <Link
           to={
             currentUser.isAuth
-              ? `/profile/${currentUser.user.data.id}`
+              ? `/profile/${currentUser.user ? currentUser.user.data.id : ""}`
               : "/login"
           }
         >

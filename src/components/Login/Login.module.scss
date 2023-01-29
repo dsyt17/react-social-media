@@ -6,7 +6,7 @@
 }
 
 .form {
-  width: 200px;
+  width: 300px;
 }
 
 .rememberMe {
@@ -26,4 +26,13 @@
 
 .disabled {
   background-color: #878787;
+}
+
+.formError {
+  width: 100%;
+  border: 1px solid red;
+  color: red;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
 }

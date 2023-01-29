@@ -38,7 +38,11 @@ export const updateUserStatus = createAsyncThunk(
 const profileSlice = createSlice({
   name: "posts",
   initialState,
-  reducers: {},
+  reducers: {
+    clearUserStatus(state) {
+      state.status = "";
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchUserStatus.fulfilled, (state, action) => {
       state.status = action.payload;
@@ -48,3 +52,4 @@ const profileSlice = createSlice({
 });
 
 export const profileReducer = profileSlice.reducer;
+export const { clearUserStatus } = profileSlice.actions;
