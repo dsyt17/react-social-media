@@ -7,10 +7,6 @@ const Header = () => {
   const currentUser = useSelector((state) => state.authMe);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(fetchAuthMe());
-  }, []);
-
   const logout = () => {
     dispatch(fetchLogout());
   };

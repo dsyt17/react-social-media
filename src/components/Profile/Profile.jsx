@@ -3,7 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useParams } from "react-router-dom";
 import {
   clearUserStatus,
+  deInitializeProfile,
   fetchUserStatus,
+  initializeProfile,
 } from "../../redux/slices/profileReducer";
 import { clearUserById, fetchUserById } from "../../redux/slices/usersReducer";
 import Loader from "../common/Loader/Loader";
@@ -18,14 +20,26 @@ const Profile = () => {
 
   let { id } = useParams();
 
+  const initialProfile = (userId) => {
+    const userPromise = dispatch(fetchUserById(userId));
+    const statusPromise = dispatch(fetchUserStatus(userId));
+
+    Promise.all([userPromise, statusPromise]).then(() => {
+      dispatch(initializeProfile());
+    });
+  };
+
+  const clearProfile = () => {
+    dispatch(clearUserById());
+    dispatch(clearUserStatus());
+    dispatch(deInitializeProfile());
+  };
+
   useEffect(() => {
-    dispatch(fetchUserById(id));
-    dispatch(fetchUserStatus(id));
+    initialProfile(id);
 
     return () => {
-      dispatch(clearUserById());
-      dispatch(clearUserStatus());
-      console.log("profile unmount");
+      clearProfile();
     };
   }, []);
 
@@ -35,7 +49,7 @@ const Profile = () => {
 
   return (
     <div>
-      {user.isLoadingUser ? (
+      {!profileInfo.initialized ? (
         <Loader />
       ) : (
         <>

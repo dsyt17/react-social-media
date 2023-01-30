@@ -1,9 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "../../axios";
 
-const ADD_POST = "ADD-POST";
-const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT-POST";
-
 const initialState = {
   posts: [
     { id: 1, user: "Igor", text: "post1", likesCount: 2 },
@@ -15,6 +12,7 @@ const initialState = {
   newPostText: "",
   status: "",
   isLoading: true,
+  initialized: false,
 };
 
 export const fetchUserStatus = createAsyncThunk(
@@ -36,11 +34,17 @@ export const updateUserStatus = createAsyncThunk(
 );
 
 const profileSlice = createSlice({
-  name: "posts",
+  name: "profile",
   initialState,
   reducers: {
     clearUserStatus(state) {
       state.status = "";
+    },
+    initializeProfile(state) {
+      state.initialized = true;
+    },
+    deInitializeProfile(state) {
+      state.initialized = false;
     },
   },
   extraReducers: (builder) => {
@@ -52,4 +56,5 @@ const profileSlice = createSlice({
 });
 
 export const profileReducer = profileSlice.reducer;
-export const { clearUserStatus } = profileSlice.actions;
+export const { clearUserStatus, initializeProfile, deInitializeProfile } =
+  profileSlice.actions;

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useReducer } from "react";
 import { useRef } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,6 +18,8 @@ const Users = () => {
   const users = useSelector((state) => state.users);
 
   const [currentPage, setCurrentPage] = useState(1);
+
+  // const [_, forceUpdate] = useReducer((x) => x + 1, 0);
 
   useEffect(() => {
     dispatch(fetchUsers(currentPage));
@@ -39,6 +42,7 @@ const Users = () => {
     user.followed
       ? dispatch(unfollowUser(userId))
       : dispatch(followUser(userId));
+    // forceUpdate();
   };
 
   const parentRef = useRef();
