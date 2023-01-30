@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAuthMe, fetchLogout } from "../../redux/slices/authReducer";
 import classes from "./Header.module.scss";
+import logo from "../../assets/temp-logo.png";
 
 const Header = () => {
   const currentUser = useSelector((state) => state.authMe);
@@ -13,7 +14,7 @@ const Header = () => {
 
   return (
     <header className={classes.header}>
-      <img src="./temp-logo.png" alt="logo" />
+      <img src={logo} alt="logo" />
       <div className={classes.currentUser}>
         {currentUser.isAuth && currentUser.user
           ? currentUser.user.data.login
