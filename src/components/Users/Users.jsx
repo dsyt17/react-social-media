@@ -37,12 +37,17 @@ const Users = () => {
 
   let pagesArray = getPagination();
 
-  const followUnfollowUser = (user) => {
+  const followUnfollowUser = (user, e) => {
     const userId = user.id;
     user.followed
       ? dispatch(unfollowUser(userId))
       : dispatch(followUser(userId));
-    // forceUpdate();
+
+    if (e.target.innerText === "Unfollow") {
+      e.target.innerText = "Follow";
+    } else {
+      e.target.innerText = "Unfollow";
+    }
   };
 
   const parentRef = useRef();
@@ -86,7 +91,7 @@ const Users = () => {
               <div>
                 <span>
                   <button
-                    onClick={() => followUnfollowUser(user)}
+                    onClick={(e) => followUnfollowUser(user, e)}
                     disabled={
                       users.followingInProgress.some((id) => id === user.id)
                         ? true

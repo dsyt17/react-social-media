@@ -22,6 +22,10 @@ const ProfileInfo = (props) => {
     setEditMode(false);
   };
 
+  const changeStatus = (e) => {
+    setStatus(e.currentTarget.value);
+  };
+
   return (
     <div>
       <div>
@@ -47,7 +51,12 @@ const ProfileInfo = (props) => {
               {status ? status : "No Status"}
             </span>
           ) : (
-            <input autoFocus={true} onBlur={updateStatus} />
+            <input
+              autoFocus={true}
+              onBlur={updateStatus}
+              value={status}
+              onChange={changeStatus}
+            />
           )}
         </div>
       </div>
