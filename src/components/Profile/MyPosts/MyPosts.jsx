@@ -1,6 +1,7 @@
-import React, { createRef } from "react";
-import { useSelector } from "react-redux";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Field, reduxForm } from "redux-form";
+import { addPost } from "../../../redux/slices/profileReducer";
 import {
   maxLengthCreator,
   requiredField,
@@ -18,7 +19,7 @@ const PostForm = (props) => {
         <Field
           validate={[requiredField, maxLen100]}
           type="text"
-          name="NewPost"
+          name="postText"
           component={Textarea}
         />
       </div>
@@ -33,9 +34,12 @@ const PostReduxForm = reduxForm({
 
 const MyPosts = () => {
   const posts = useSelector((state) => state.profile.posts);
+  const dispatch = useDispatch();
 
   const onSubmit = (formData) => {
-    console.log(formData);
+    dispatch(
+      addPost({ id: 99, user: "Igor", text: formData.postText, likesCount: 42 })
+    );
   };
 
   return (

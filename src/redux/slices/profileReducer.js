@@ -46,6 +46,10 @@ const profileSlice = createSlice({
     deInitializeProfile(state) {
       state.initialized = false;
     },
+    // temp
+    addPost(state, action) {
+      state.posts.push(action.payload);
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchUserStatus.fulfilled, (state, action) => {
@@ -56,5 +60,9 @@ const profileSlice = createSlice({
 });
 
 export const profileReducer = profileSlice.reducer;
-export const { clearUserStatus, initializeProfile, deInitializeProfile } =
-  profileSlice.actions;
+export const {
+  clearUserStatus,
+  initializeProfile,
+  deInitializeProfile,
+  addPost,
+} = profileSlice.actions;

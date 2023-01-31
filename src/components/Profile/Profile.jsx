@@ -41,11 +41,7 @@ const Profile = () => {
     return () => {
       clearProfile();
     };
-  }, []);
-
-  // if (currentUser.isAuth === false) {
-  //   return <Navigate to="/login" />;
-  // }
+  }, [id]);
 
   return (
     <div>
