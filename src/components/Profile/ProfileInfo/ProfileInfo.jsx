@@ -1,10 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import {
-  fetchUserStatus,
-  updateUserStatus,
-} from "../../../redux/slices/profileReducer";
+import { updateUserStatus } from "../../../redux/slices/profileReducer";
 import classes from "./ProfileInfo.module.scss";
 
 const ProfileInfo = (props) => {
