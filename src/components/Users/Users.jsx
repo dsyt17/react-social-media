@@ -15,6 +15,7 @@ const Users = () => {
   const users = useSelector((state) => state.users);
 
   const [currentPage, setCurrentPage] = useState(1);
+  const pagesCount = Math.ceil(users.usersCount / users.usersOnPage);
 
   useEffect(() => {
     dispatch(fetchUsers(currentPage));
@@ -39,6 +40,7 @@ const Users = () => {
         users={users}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
+        pagesCount={pagesCount}
       />
       {users.isLoading ? (
         <Loader />
