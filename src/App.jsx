@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./App.scss";
 import AppRouter from "./components/AppRouter";
-import Loader from "./components/common/Loader/Loader";
 import Header from "./components/Header/Header";
 import Navbar from "./components/Navbar/Navbar";
 import { initializeApp } from "./redux/slices/appReducer";
