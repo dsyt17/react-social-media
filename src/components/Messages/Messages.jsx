@@ -10,6 +10,7 @@ import {
   requiredField,
 } from "../../utils/validators/validators";
 import { Textarea } from "../common/FormsControls/FormsControls";
+import useDocumentTitle from "../../hooks/useDocumentTitle";
 
 const maxLen100 = maxLengthCreator(100);
 
@@ -36,6 +37,7 @@ const MessageReduxForm = reduxForm({
 })(MessageForm);
 
 const Messages = () => {
+  useDocumentTitle("Messages");
   const dialogsData = useSelector((state) => state.dialogs);
   const isAuth = useSelector((state) => state.authMe.isAuth);
 

@@ -8,5 +8,14 @@
   .currentUser {
     color: whitesmoke;
     float: right;
+    font-size: 1.3rem;
+    margin-right: 30px;
+    margin-top: 3px;
+    button {
+      background-color: whitesmoke;
+      font-size: 1rem;
+      margin-top: 3px;
+      border-radius: 5px;
+    }
   }
 }

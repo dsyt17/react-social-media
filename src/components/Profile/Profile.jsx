@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useParams } from "react-router-dom";
+import useDocumentTitle from "../../hooks/useDocumentTitle";
 import {
   clearUserStatus,
   deInitializeProfile,
@@ -14,6 +15,8 @@ import classes from "./Profile.module.scss";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 
 const Profile = () => {
+  useDocumentTitle("Profile");
+
   const dispatch = useDispatch();
   const user = useSelector((state) => state.users);
   const profileInfo = useSelector((state) => state.profile);
@@ -37,7 +40,6 @@ const Profile = () => {
 
   useEffect(() => {
     initialProfile(id);
-
     return () => {
       clearProfile();
     };

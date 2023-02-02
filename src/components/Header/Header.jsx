@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAuthMe, fetchLogout } from "../../redux/slices/authReducer";
+import { fetchLogout } from "../../redux/slices/authReducer";
 import classes from "./Header.module.scss";
 import logo from "../../assets/temp-logo.png";
 
@@ -19,7 +19,11 @@ const Header = () => {
         {currentUser.isAuth && currentUser.user
           ? currentUser.user.data.login
           : ""}
-        {currentUser.isAuth && <button onClick={logout}>Logout</button>}
+        {currentUser.isAuth && (
+          <div>
+            <button onClick={logout}>Logout</button>
+          </div>
+        )}
       </div>
     </header>
   );

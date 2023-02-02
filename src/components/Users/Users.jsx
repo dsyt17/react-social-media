@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import useDocumentTitle from "../../hooks/useDocumentTitle";
 import {
   fetchUsers,
   followUser,
@@ -11,6 +12,8 @@ import Paginator from "../common/Paginator/Paginator";
 import User from "./User";
 
 const Users = () => {
+  useDocumentTitle("Users");
+
   const dispatch = useDispatch();
   const users = useSelector((state) => state.users);
 
@@ -33,6 +36,8 @@ const Users = () => {
       e.target.innerText = "Unfollow";
     }
   };
+
+  console.log("r");
 
   return (
     <div>
