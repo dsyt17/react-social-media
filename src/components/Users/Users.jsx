@@ -37,8 +37,6 @@ const Users = () => {
     }
   };
 
-  console.log("r");
-
   return (
     <div>
       <Paginator

@@ -33,6 +33,20 @@ export const updateUserStatus = createAsyncThunk(
   }
 );
 
+export const updateUserPhoto = createAsyncThunk(
+  "users/updateUserPhoto",
+  async (file) => {
+    const formData = new FormData();
+    formData.append("image", file);
+    const response = await axios.put(`profile/photo`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    return response.data;
+  }
+);
+
 const profileSlice = createSlice({
   name: "profile",
   initialState,

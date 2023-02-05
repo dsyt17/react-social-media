@@ -1,7 +1,12 @@
 import React from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { updateUserStatus } from "../../../redux/slices/profileReducer";
+import {
+  updateUserPhoto,
+  updateUserStatus,
+} from "../../../redux/slices/profileReducer";
+import Loader from "../../common/Loader/Loader";
+
 import classes from "./ProfileInfo.module.scss";
 
 const ProfileInfo = (props) => {
@@ -9,6 +14,9 @@ const ProfileInfo = (props) => {
 
   const [editMode, setEditMode] = useState(false);
   const [status, setStatus] = useState(props.status);
+  const [selectedImage, setSelectedImage] = useState(photos.large);
+  const [isLoading, setIsLoading] = useState(false);
+  const [uploadPhotoError, setUploadPhotoError] = useState(false);
 
   const dispatch = useDispatch();
   // dispatch(fetchUserStatus(userId));
@@ -23,6 +31,25 @@ const ProfileInfo = (props) => {
     setStatus(e.currentTarget.value);
   };
 
+  const editStatus = () => {
+    if (props.isCurrentUserPage) {
+      setEditMode(true);
+    }
+  };
+  const updateProfilePhoto = async (e) => {
+    if (e.target.files.length) {
+      setUploadPhotoError(false);
+      setIsLoading(true);
+      const res = await dispatch(updateUserPhoto(e.target.files[0]));
+      try {
+        setSelectedImage(res.payload.data.photos.large);
+      } catch (error) {
+        setUploadPhotoError(true);
+      }
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div>
       <div>
@@ -33,20 +60,46 @@ const ProfileInfo = (props) => {
           src="https://w-dog.ru/wallpapers/12/1/511160664822260/babochek-belye-kamni-krasochnye-dizajn-marika-babochki-kamni.jpg"
         /> */}
       </div>
-      <img
-        alt="Avatar"
-        className={classes.avatar}
-        src={photos.large ? photos.large : "/user.png"}
-      />
       <div className={classes.profile_description}>
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <img
+            alt="Avatar"
+            className={classes.avatar}
+            src={selectedImage || "/user.png"}
+          />
+        )}
+
+        {isLoading && <div>Photo loading...</div>}
+
+        {uploadPhotoError && <div>Upload error</div>}
+
+        {props.isCurrentUserPage && (
+          <>
+            <input
+              type="file"
+              className={classes.hidden}
+              name="myImage"
+              id="file"
+              onChange={updateProfilePhoto}
+            />
+            <label
+              className={`${classes.chosePhoto} ${
+                isLoading ? classes.hidden : ""
+              }`}
+              for="file"
+            >
+              Chose photo
+            </label>
+          </>
+        )}
         <div>
           <h2>{fullName}</h2>
         </div>
         <div>
           {!editMode ? (
-            <span onClick={() => setEditMode(true)}>
-              {status ? status : "No Status"}
-            </span>
+            <span onClick={editStatus}>{status || "No Status"}</span>
           ) : (
             <input
               autoFocus={true}

@@ -2,7 +2,7 @@
   "name": "react-social-media",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://dsyt17.github.io/react-social-media",
+  "homepage": "https://dsyt17.github.io/",
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.1",
     "@testing-library/jest-dom": "^5.14.1",

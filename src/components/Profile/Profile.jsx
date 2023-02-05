@@ -20,8 +20,12 @@ const Profile = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.users);
   const profileInfo = useSelector((state) => state.profile);
+  const authMe = useSelector((state) => state.authMe);
 
   let { id } = useParams();
+
+  const isCurrentUserPage =
+    authMe.isAuth && id == authMe.user.data.id ? true : false;
 
   const initialProfile = (userId) => {
     const userPromise = dispatch(fetchUserById(userId));
@@ -51,7 +55,11 @@ const Profile = () => {
         <Loader />
       ) : (
         <>
-          <ProfileInfo user={user.userById} status={profileInfo.status} />
+          <ProfileInfo
+            isCurrentUserPage={isCurrentUserPage}
+            user={user.userById}
+            status={profileInfo.status}
+          />
           <MyPosts />
         </>
       )}
