@@ -2,6 +2,9 @@
   padding: 10px;
 }
 
+.profileInfo {
+}
+
 .center {
   display: flex;
   justify-content: center;
@@ -11,6 +14,12 @@
   flex-direction: column;
   align-items: center;
   font-size: 1.1rem;
+}
+
+.brake {
+  background-color: #242582;
+  height: 2px;
+  margin-bottom: 10px;
 }
 
 .uploadError {

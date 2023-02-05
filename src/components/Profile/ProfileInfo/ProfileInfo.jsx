@@ -10,7 +10,8 @@ import Loader from "../../common/Loader/Loader";
 import classes from "./ProfileInfo.module.scss";
 
 const ProfileInfo = (props) => {
-  const { photos, fullName, aboutMe, userId } = props.user[0];
+  const { photos, fullName, aboutMe, userId, lookingForAJob, contacts } =
+    props.user[0];
 
   const [editMode, setEditMode] = useState(false);
   const [status, setStatus] = useState(props.status);
@@ -104,19 +105,52 @@ const ProfileInfo = (props) => {
         <div>
           <h2>{fullName}</h2>
         </div>
-        <div>
-          {!editMode ? (
-            <span onClick={editStatus}>{status || "No Status"}</span>
-          ) : (
-            <input
-              autoFocus={true}
-              onBlur={updateStatus}
-              value={status}
-              onChange={changeStatus}
-            />
-          )}
+        <div className={classes.brake} />
+        <div className={classes.profileInfo}>
+          <div>
+            {!editMode ? (
+              <span onClick={editStatus}>{status || "No Status"}</span>
+            ) : (
+              <input
+                autoFocus={true}
+                onBlur={updateStatus}
+                value={status}
+                onChange={changeStatus}
+              />
+            )}
+          </div>
+
+          <div>
+            Looking for a job: {lookingForAJob ? <b>true</b> : <b>false</b>}
+          </div>
+
+          <div>
+            Contacts:{" "}
+            {Object.keys(contacts).map((key) => (
+              <Contact
+                key={key}
+                contactTitle={key}
+                contactValue={contacts[key]}
+              />
+            ))}
+          </div>
         </div>
       </div>
+    </div>
+  );
+};
+
+const Contact = ({ contactTitle, contactValue }) => {
+  return (
+    <div>
+      <b>{contactTitle}:</b>{" "}
+      {contactValue ? (
+        <a href={contactValue} rel="noopener noreferrer" target="_blank">
+          {contactValue}
+        </a>
+      ) : (
+        "null"
+      )}
     </div>
   );
 };
