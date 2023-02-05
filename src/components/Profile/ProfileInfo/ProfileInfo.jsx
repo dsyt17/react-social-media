@@ -38,6 +38,8 @@ const ProfileInfo = (props) => {
   };
   const updateProfilePhoto = async (e) => {
     if (e.target.files.length) {
+      const oldImage = selectedImage;
+      setSelectedImage(null);
       setUploadPhotoError(false);
       setIsLoading(true);
       const res = await dispatch(updateUserPhoto(e.target.files[0]));
@@ -45,11 +47,11 @@ const ProfileInfo = (props) => {
         setSelectedImage(res.payload.data.photos.large);
       } catch (error) {
         setUploadPhotoError(true);
+        setSelectedImage(oldImage);
       }
       setIsLoading(false);
     }
   };
-
   return (
     <div>
       <div>
@@ -61,22 +63,27 @@ const ProfileInfo = (props) => {
         /> */}
       </div>
       <div className={classes.profile_description}>
-        {isLoading ? (
-          <Loader />
-        ) : (
+        <div className={classes.center}>
           <img
             alt="Avatar"
             className={classes.avatar}
             src={selectedImage || "/user.png"}
           />
+        </div>
+
+        {isLoading && (
+          <div className={classes.centerLoader}>
+            <Loader />
+            <div>Photo loading...</div>
+          </div>
         )}
 
-        {isLoading && <div>Photo loading...</div>}
-
-        {uploadPhotoError && <div>Upload error</div>}
+        {uploadPhotoError && (
+          <div className={classes.uploadError}>Upload error</div>
+        )}
 
         {props.isCurrentUserPage && (
-          <>
+          <div className={classes.chosePhotoBlock}>
             <input
               type="file"
               className={classes.hidden}
@@ -88,11 +95,11 @@ const ProfileInfo = (props) => {
               className={`${classes.chosePhoto} ${
                 isLoading ? classes.hidden : ""
               }`}
-              for="file"
+              htmlFor="file"
             >
               Chose photo
             </label>
-          </>
+          </div>
         )}
         <div>
           <h2>{fullName}</h2>
