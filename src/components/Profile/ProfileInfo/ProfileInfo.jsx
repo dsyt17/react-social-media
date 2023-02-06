@@ -20,7 +20,6 @@ const ProfileInfo = (props) => {
   const [uploadPhotoError, setUploadPhotoError] = useState(false);
 
   const dispatch = useDispatch();
-  // dispatch(fetchUserStatus(userId));
 
   const updateStatus = (e) => {
     setStatus(e.currentTarget.value);
@@ -54,88 +53,30 @@ const ProfileInfo = (props) => {
     }
   };
   return (
-    <div>
+    <div className={classes.profileDescription}>
+      <ProfilePhoto
+        selectedImage={selectedImage}
+        isLoading={isLoading}
+        uploadPhotoError={uploadPhotoError}
+        isCurrentUserPage={props.isCurrentUserPage}
+        updateProfilePhoto={updateProfilePhoto}
+      />
+
       <div>
-        {/* <img
-          alt="profile-header"
-          height={300}
-          width={"100%"}
-          src="https://w-dog.ru/wallpapers/12/1/511160664822260/babochek-belye-kamni-krasochnye-dizajn-marika-babochki-kamni.jpg"
-        /> */}
+        <h1>{fullName}</h1>
       </div>
-      <div className={classes.profile_description}>
-        <div className={classes.center}>
-          <img
-            alt="Avatar"
-            className={classes.avatar}
-            src={selectedImage || "/user.png"}
-          />
-        </div>
 
-        {isLoading && (
-          <div className={classes.centerLoader}>
-            <Loader />
-            <div>Photo loading...</div>
-          </div>
-        )}
+      <div className={classes.brake} />
 
-        {uploadPhotoError && (
-          <div className={classes.uploadError}>Upload error</div>
-        )}
-
-        {props.isCurrentUserPage && (
-          <div className={classes.chosePhotoBlock}>
-            <input
-              type="file"
-              className={classes.hidden}
-              name="myImage"
-              id="file"
-              onChange={updateProfilePhoto}
-            />
-            <label
-              className={`${classes.chosePhoto} ${
-                isLoading ? classes.hidden : ""
-              }`}
-              htmlFor="file"
-            >
-              Chose photo
-            </label>
-          </div>
-        )}
-        <div>
-          <h2>{fullName}</h2>
-        </div>
-        <div className={classes.brake} />
-        <div className={classes.profileInfo}>
-          <div>
-            {!editMode ? (
-              <span onClick={editStatus}>{status || "No Status"}</span>
-            ) : (
-              <input
-                autoFocus={true}
-                onBlur={updateStatus}
-                value={status}
-                onChange={changeStatus}
-              />
-            )}
-          </div>
-
-          <div>
-            Looking for a job: {lookingForAJob ? <b>true</b> : <b>false</b>}
-          </div>
-
-          <div>
-            Contacts:{" "}
-            {Object.keys(contacts).map((key) => (
-              <Contact
-                key={key}
-                contactTitle={key}
-                contactValue={contacts[key]}
-              />
-            ))}
-          </div>
-        </div>
-      </div>
+      <ProfileData
+        editMode={editMode}
+        editStatus={editStatus}
+        status={status}
+        updateStatus={updateStatus}
+        changeStatus={changeStatus}
+        lookingForAJob={lookingForAJob}
+        contacts={contacts}
+      />
     </div>
   );
 };
@@ -151,6 +92,92 @@ const Contact = ({ contactTitle, contactValue }) => {
       ) : (
         "null"
       )}
+    </div>
+  );
+};
+
+const ProfilePhoto = ({
+  selectedImage,
+  isLoading,
+  uploadPhotoError,
+  updateProfilePhoto,
+  isCurrentUserPage,
+}) => {
+  return (
+    <>
+      {isCurrentUserPage && (
+        <div className={classes.chosePhotoBlock}>
+          <input
+            type="file"
+            className={classes.hidden}
+            name="myImage"
+            id="file"
+            onChange={updateProfilePhoto}
+          />
+          <label
+            className={`${classes.chosePhoto} ${
+              isLoading ? classes.hidden : ""
+            }`}
+            htmlFor="file"
+          >
+            Change photo
+          </label>
+        </div>
+      )}
+      <div className={classes.center}>
+        <img
+          alt="Avatar"
+          className={classes.avatar}
+          src={selectedImage || "/user.png"}
+        />
+      </div>
+      {isLoading && (
+        <div className={classes.centerLoader}>
+          <Loader />
+          <div>Photo loading...</div>
+        </div>
+      )}
+      {uploadPhotoError && (
+        <div className={classes.uploadError}>Upload error</div>
+      )}
+    </>
+  );
+};
+
+const ProfileData = ({
+  editMode,
+  editStatus,
+  status,
+  updateStatus,
+  changeStatus,
+  lookingForAJob,
+  contacts,
+}) => {
+  return (
+    <div className={classes.profileData}>
+      <div>
+        {!editMode ? (
+          <span onClick={editStatus}>{status || "No Status"}</span>
+        ) : (
+          <input
+            autoFocus={true}
+            onBlur={updateStatus}
+            value={status}
+            onChange={changeStatus}
+          />
+        )}
+      </div>
+
+      <div>
+        Looking for a job: {lookingForAJob ? <b>true</b> : <b>false</b>}
+      </div>
+
+      <div>
+        Contacts:{" "}
+        {Object.keys(contacts).map((key) => (
+          <Contact key={key} contactTitle={key} contactValue={contacts[key]} />
+        ))}
+      </div>
     </div>
   );
 };
