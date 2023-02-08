@@ -1,4 +1,5 @@
 import React from "react";
+import { Field } from "redux-form";
 import classses from "./FormsControls.module.scss";
 
 // export const FormControl = ({ input, meta, ...props }) => {
@@ -39,6 +40,28 @@ export const Input = ({ input, meta, ...props }) => {
         <input className={classses.input} {...input} {...props} />
       </div>
       {error && <span>{meta.error}</span>}
+    </div>
+  );
+};
+
+export const createField = (
+  palceholder,
+  name,
+  validators,
+  component,
+  props = {},
+  text = ""
+) => {
+  return (
+    <div>
+      <Field
+        palceholder={palceholder}
+        name={name}
+        validate={validators}
+        component={component}
+        {...props}
+      />{" "}
+      {text}
     </div>
   );
 };

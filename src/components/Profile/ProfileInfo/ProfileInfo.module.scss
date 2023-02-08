@@ -5,6 +5,12 @@
 .profileData {
 }
 
+.nameAndEdit {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .center {
   display: flex;
   justify-content: center;
@@ -36,20 +42,27 @@
   margin-top: 10px;
 }
 
-.chosePhoto {
-  position: absolute;
-  top: 70px;
+.profileButton {
   cursor: pointer;
   padding: 2px;
   border: 2px solid #242582;
   border-radius: 5px;
+  font-size: 1rem;
   &:hover {
     background-color: #f64c72;
     color: whitesmoke;
     border: 2px solid #f64c72;
   }
+  &.chosePhoto {
+    position: absolute;
+    top: 70px;
+  }
 }
 
 .hidden {
   display: none;
+}
+
+.item {
+  display: inline;
 }

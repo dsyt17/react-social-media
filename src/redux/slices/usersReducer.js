@@ -40,6 +40,14 @@ export const fetchUserById = createAsyncThunk(
   }
 );
 
+export const updateUserProfile = createAsyncThunk(
+  "users/updateUserProfile",
+  async (profile) => {
+    const response = await axios.put(`profile`, profile);
+    return response.data;
+  }
+);
+
 const usersSlice = createSlice({
   name: "users",
   initialState,
@@ -92,6 +100,13 @@ const usersSlice = createSlice({
       state.followingInProgress = state.followingInProgress.filter(
         (id) => id !== action.meta.arg
       );
+    });
+    // Update user
+    builder.addCase(updateUserProfile.pending, (state, action) => {
+      state.isLoadingUser = true;
+    });
+    builder.addCase(updateUserProfile.fulfilled, (state, action) => {
+      state.isLoadingUser = false;
     });
   },
 });

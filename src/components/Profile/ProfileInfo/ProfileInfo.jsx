@@ -2,10 +2,14 @@ import React from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import {
+  deInitializeProfile,
   updateUserPhoto,
   updateUserStatus,
 } from "../../../redux/slices/profileReducer";
+import { updateUserProfile } from "../../../redux/slices/usersReducer";
 import Loader from "../../common/Loader/Loader";
+import ProfileReduxForm from "./ProfileDataForm";
+import ProfileDataForm from "./ProfileDataForm";
 
 import classes from "./ProfileInfo.module.scss";
 
@@ -31,7 +35,7 @@ const ProfileInfo = (props) => {
     setStatus(e.currentTarget.value);
   };
 
-  const editStatus = () => {
+  const editProfile = () => {
     if (props.isCurrentUserPage) {
       setEditMode(true);
     }
@@ -52,6 +56,28 @@ const ProfileInfo = (props) => {
       setIsLoading(false);
     }
   };
+
+  const onSubmitNewProfileData = (formData) => {
+    const data = {
+      lookingForAJobDescription: "test",
+      fullName: fullName,
+      ...formData,
+    };
+    setIsLoading(false);
+    dispatch(deInitializeProfile());
+    const userProfilePromise = dispatch(updateUserProfile(data));
+    const userStatusPromise = dispatch(updateUserStatus(data.status));
+    Promise.all([userProfilePromise, userStatusPromise]).then(() => {
+      props.initialProfile(userId);
+    });
+    setEditMode(false);
+  };
+
+  const dataForReduxForm = {
+    ...props,
+    ...props.user[0],
+  };
+
   return (
     <div className={classes.profileDescription}>
       <ProfilePhoto
@@ -62,21 +88,37 @@ const ProfileInfo = (props) => {
         updateProfilePhoto={updateProfilePhoto}
       />
 
-      <div>
+      <div className={classes.nameAndEdit}>
         <h1>{fullName}</h1>
+        {props.isCurrentUserPage && (
+          <button className={classes.profileButton} onClick={editProfile}>
+            Edit Profile
+          </button>
+        )}
       </div>
-
       <div className={classes.brake} />
 
-      <ProfileData
-        editMode={editMode}
-        editStatus={editStatus}
-        status={status}
-        updateStatus={updateStatus}
-        changeStatus={changeStatus}
-        lookingForAJob={lookingForAJob}
-        contacts={contacts}
-      />
+      {editMode ? (
+        <ProfileReduxForm
+          onSubmit={onSubmitNewProfileData}
+          status={status}
+          lookingForAJob={lookingForAJob}
+          aboutMe={aboutMe}
+          initialValues={dataForReduxForm}
+          contacts={contacts}
+        />
+      ) : (
+        <ProfileData
+          editMode={editMode}
+          editStatus={editProfile}
+          status={status}
+          updateStatus={updateStatus}
+          changeStatus={changeStatus}
+          lookingForAJob={lookingForAJob}
+          contacts={contacts}
+          aboutMe={aboutMe}
+        />
+      )}
     </div>
   );
 };
@@ -115,7 +157,7 @@ const ProfilePhoto = ({
             onChange={updateProfilePhoto}
           />
           <label
-            className={`${classes.chosePhoto} ${
+            className={`${classes.chosePhoto}  ${classes.profileButton} ${
               isLoading ? classes.hidden : ""
             }`}
             htmlFor="file"
@@ -152,6 +194,7 @@ const ProfileData = ({
   changeStatus,
   lookingForAJob,
   contacts,
+  aboutMe,
 }) => {
   return (
     <div className={classes.profileData}>
@@ -171,6 +214,8 @@ const ProfileData = ({
       <div>
         Looking for a job: {lookingForAJob ? <b>true</b> : <b>false</b>}
       </div>
+
+      {aboutMe && <div>About me: {aboutMe}</div>}
 
       <div>
         Contacts:{" "}

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useParams } from "react-router-dom";
 import useDocumentTitle from "../../hooks/useDocumentTitle";
@@ -21,6 +21,7 @@ const Profile = () => {
   const user = useSelector((state) => state.users);
   const profileInfo = useSelector((state) => state.profile);
   const authMe = useSelector((state) => state.authMe);
+  const [isLoadingProfile, setIsLoadingProfile] = useState(false);
 
   let { id } = useParams();
 
@@ -59,6 +60,7 @@ const Profile = () => {
             isCurrentUserPage={isCurrentUserPage}
             user={user.userById}
             status={profileInfo.status}
+            initialProfile={initialProfile}
           />
           <MyPosts />
         </>
