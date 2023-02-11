@@ -1,7 +1,10 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "../../axios";
+import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
+type InitialStateType = {
+  initialized: boolean;
+};
+
+const initialState: InitialStateType = {
   initialized: false,
 };
 
@@ -9,7 +12,7 @@ const appSlice = createSlice({
   name: "app",
   initialState,
   reducers: {
-    initializeApp(state) {
+    initializeApp(state: InitialStateType): void {
       state.initialized = true;
     },
   },

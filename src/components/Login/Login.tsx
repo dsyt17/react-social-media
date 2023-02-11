@@ -1,13 +1,15 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 import { Field, reduxForm, stopSubmit } from "redux-form";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { LoginDataType } from "../../redux/slices/authReducer";
 import { fetchAuthMe, fetchLogin } from "../../redux/slices/authReducer";
+import { RootState } from "../../redux/store";
 import { requiredField } from "../../utils/validators/validators";
 import { Input } from "../common/FormsControls/FormsControls";
 import classes from "./Login.module.scss";
 
-const LoginForm = (props) => {
+const LoginForm = (props: any) => {
   return (
     <form onSubmit={props.handleSubmit} className={classes.form}>
       <div>
@@ -52,12 +54,12 @@ const LoginReduxForm = reduxForm({
 })(LoginForm);
 
 const Login = () => {
-  const { isAuth, isLoading, loginError } = useSelector(
-    (state) => state.authMe
+  const { isAuth, isLoading, loginError } = useAppSelector(
+    (state: RootState) => state.authMe
   );
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const onSubmit = (formData) => {
+  const onSubmit: any = (formData: LoginDataType) => {
     dispatch(fetchLogin(formData));
   };
 
@@ -71,10 +73,15 @@ const Login = () => {
     return <Navigate to="/messages" />;
   }
 
+  const loginReduxFormProps = {
+    disabled: isLoading,
+    onSubmit: onSubmit,
+  };
+
   return (
     <div className={classes.loginWrapper}>
       <h1>Login</h1>
-      <LoginReduxForm onSubmit={onSubmit} disabled={isLoading} />
+      <LoginReduxForm {...loginReduxFormProps} />
     </div>
   );
 };

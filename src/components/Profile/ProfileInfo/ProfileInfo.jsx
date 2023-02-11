@@ -9,7 +9,6 @@ import {
 import { updateUserProfile } from "../../../redux/slices/usersReducer";
 import Loader from "../../common/Loader/Loader";
 import ProfileReduxForm from "./ProfileDataForm";
-import ProfileDataForm from "./ProfileDataForm";
 
 import classes from "./ProfileInfo.module.scss";
 

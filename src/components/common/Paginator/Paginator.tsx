@@ -1,17 +1,19 @@
 import React, { useState } from "react";
 import classes from "./Paginator.module.scss";
 
-const Paginator = ({
+type PropsType = {
+  currentPage: number;
+  setCurrentPage: (pageNumber: number) => void;
+  portionSize?: number;
+  pagesCount: number;
+};
+
+const Paginator: React.FC<PropsType> = ({
   currentPage,
   setCurrentPage,
-  users,
   portionSize = 10,
   pagesCount,
 }) => {
-  // useEffect(() => {
-  //   pagesArray = getPagination();
-  // }, [currentPage]);
-
   const getPagination = () => {
     const pages = [];
     for (let i = 1; i < pagesCount + 1; i++) {

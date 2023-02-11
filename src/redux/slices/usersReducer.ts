@@ -1,7 +1,18 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "../../axios";
+import { UsersType, UserType } from "../types";
 
-const initialState = {
+type InitialStateType = {
+  users: Array<UsersType>;
+  userById: Array<UserType>;
+  isLoading: boolean;
+  isLoadingUser: boolean;
+  usersCount: number;
+  usersOnPage: number;
+  followingInProgress: Array<number | null | void>;
+};
+
+const initialState: InitialStateType = {
   users: [],
   userById: [],
   isLoading: true,
@@ -11,14 +22,17 @@ const initialState = {
   followingInProgress: [],
 };
 
-export const fetchUsers = createAsyncThunk("users/fetchUsers", async (page) => {
-  const response = await axios.get(`users/?page=${page}&count=${20}`);
-  return response.data;
-});
+export const fetchUsers = createAsyncThunk(
+  "users/fetchUsers",
+  async (page: number) => {
+    const response = await axios.get(`users/?page=${page}&count=${20}`);
+    return response.data;
+  }
+);
 
 export const followUser = createAsyncThunk(
   "users/followUser",
-  async (userId) => {
+  async (userId: number) => {
     const response = await axios.post(`follow/${userId}`, {});
     return response.data;
   }
@@ -26,7 +40,7 @@ export const followUser = createAsyncThunk(
 
 export const unfollowUser = createAsyncThunk(
   "users/unfollowUser",
-  async (userId) => {
+  async (userId: number) => {
     const response = await axios.delete(`follow/${userId}`);
     return response.data;
   }
@@ -34,7 +48,7 @@ export const unfollowUser = createAsyncThunk(
 
 export const fetchUserById = createAsyncThunk(
   "users/fetchUserById",
-  async (id) => {
+  async (id: number) => {
     const response = await axios.get(`profile/${id}`);
     return response.data;
   }
@@ -59,7 +73,7 @@ const usersSlice = createSlice({
   },
   extraReducers: (builder) => {
     // Get users
-    builder.addCase(fetchUsers.fulfilled, (state, action) => {
+    builder.addCase(fetchUsers.fulfilled, (state, action: any) => {
       state.users = [];
       state.users.push(action.payload);
       state.usersCount = action.payload.totalCount;
@@ -69,7 +83,7 @@ const usersSlice = createSlice({
       state.isLoading = true;
     });
     // Get user by ID
-    builder.addCase(fetchUserById.fulfilled, (state, action) => {
+    builder.addCase(fetchUserById.fulfilled, (state, action: any) => {
       state.userById = [];
       state.userById.push(action.payload);
       state.isLoadingUser = false;

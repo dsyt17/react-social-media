@@ -4,8 +4,8 @@ import "./App.scss";
 import AppRouter from "./components/AppRouter";
 import Header from "./components/Header/Header";
 import Navbar from "./components/Navbar/Navbar";
-import { initializeApp } from "./redux/slices/appReducer";
-import { fetchAuthMe } from "./redux/slices/authReducer";
+import { initializeApp } from "./redux/slices/appReducer.ts";
+import { fetchAuthMe } from "./redux/slices/authReducer.ts";
 
 const App = () => {
   const dispatch = useDispatch();

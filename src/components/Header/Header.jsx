@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchLogout } from "../../redux/slices/authReducer";
+import { fetchLogout } from "../../redux/slices/authReducer.ts";
 import classes from "./Header.module.scss";
 import logo from "../../assets/temp-logo.png";
 

@@ -10,7 +10,11 @@ const Settings = React.lazy(() => import("../components/Settings/Settings"));
 const Music = React.lazy(() => import("../components/Music/Music"));
 const News = React.lazy(() => import("../components/News/News"));
 
-const SimpleSuspense = ({ Component }) => {
+type SimpleSuspenseProps = {
+  Component: React.FC<Object>;
+};
+
+const SimpleSuspense: React.FC<SimpleSuspenseProps> = ({ Component }) => {
   return (
     <Suspense>
       <Component />

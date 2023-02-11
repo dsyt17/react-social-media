@@ -1,9 +1,22 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const UPDATE_NEW_MESSAGE_BODY = "UPDATE-NEW-MESSAGE-BODY";
-const SEND_MESSAGE = "SEND-MESSAGE";
+type Dialog = {
+  id: number;
+  name: string;
+};
 
-const initialState = {
+type Message = {
+  id: number;
+  message: string;
+};
+
+type InitialStateType = {
+  dialogs: Array<Dialog>;
+  messages: Array<Message>;
+  newMessageBody: string;
+};
+
+const initialState: InitialStateType = {
   dialogs: [
     { id: 1, name: "Igor" },
     { id: 2, name: "Vadim" },

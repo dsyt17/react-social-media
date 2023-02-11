@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-const useDocumentTitle = (title) => {
+const useDocumentTitle = (title: string) => {
   useEffect(() => {
     document.title = title;
   }, [title]);
