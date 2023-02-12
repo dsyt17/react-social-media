@@ -1,37 +1,48 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
-import { Field, reduxForm, stopSubmit } from "redux-form";
+import { InjectedFormProps, reduxForm, stopSubmit } from "redux-form";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { LoginDataType } from "../../redux/slices/authReducer";
 import { fetchAuthMe, fetchLogin } from "../../redux/slices/authReducer";
 import { RootState } from "../../redux/store";
 import { requiredField } from "../../utils/validators/validators";
-import { Input } from "../common/FormsControls/FormsControls";
+import { createField, Input } from "../common/FormsControls/FormsControls";
 import classes from "./Login.module.scss";
 
-const LoginForm = (props: any) => {
+type LoginFormOwnProps = {
+  disabled: boolean;
+};
+
+const LoginForm: React.FC<
+  InjectedFormProps<LoginFormValuesType, LoginFormOwnProps> & LoginFormOwnProps
+> = (props) => {
   return (
     <form onSubmit={props.handleSubmit} className={classes.form}>
       <div>
-        <Field
-          type="text"
-          name="email"
-          placeholder="Email"
-          component={Input}
-          validate={[requiredField]}
-        />
+        {createField<LoginFormValuesTypeKeys>(
+          "Email",
+          "email",
+          [requiredField],
+          Input
+        )}
       </div>
       <div>
-        <Field
-          type="text"
-          name="password"
-          placeholder="Password"
-          component={Input}
-          validate={[requiredField]}
-        />
+        {createField<LoginFormValuesTypeKeys>(
+          "Password",
+          "password",
+          [requiredField],
+          Input,
+          "password"
+        )}
       </div>
       <div className={classes.rememberMe}>
-        <Field type="checkbox" name="rememberMe" component={Input} />
+        {createField<LoginFormValuesTypeKeys>(
+          undefined,
+          "rememberMe",
+          [],
+          Input,
+          "checkbox"
+        )}
         Remember me
       </div>
       {props.error && <div className={classes.formError}>{props.error}</div>}
@@ -49,7 +60,15 @@ const LoginForm = (props: any) => {
   );
 };
 
-const LoginReduxForm = reduxForm({
+export type LoginFormValuesType = {
+  email: string;
+  password: string;
+  rememberMe: boolean;
+};
+
+type LoginFormValuesTypeKeys = keyof LoginFormValuesType;
+
+const LoginReduxForm = reduxForm<LoginFormValuesType, LoginFormOwnProps>({
   form: "loginForm",
 })(LoginForm);
 
