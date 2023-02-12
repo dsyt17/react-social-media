@@ -1,6 +1,6 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { useAppSelector } from "../../hooks/hooks";
 import {
   MessageIcon,
   MusicIcon,
@@ -12,7 +12,7 @@ import {
 import classes from "./Navbar.module.scss";
 
 const Navbar = () => {
-  const currentUser = useSelector((state) => state.authMe);
+  const currentUser = useAppSelector((state) => state.authMe);
 
   return (
     <nav className={classes.nav}>

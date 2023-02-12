@@ -1,8 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "../../axios";
+import { MyResponseType, ResultCodeEnum } from "../types";
 
 type InitialStateType = {
-  user: Object | null;
+  user: { data: MeResponseDataType } | null;
   isAuth: boolean;
   isLoading: boolean;
   loginError: boolean;
@@ -15,19 +16,16 @@ const initialState: InitialStateType = {
   loginError: false,
 };
 
-enum ResultCodeEnum {
-  Success = 0,
-  Error = 1,
-}
-
-type MeResponseType = {
-  data: { id: number; email: string; login: string };
-  resultCode: number;
-  messages: Array<string>;
+type MeResponseDataType = {
+  id: number;
+  email: string;
+  login: string;
 };
 
 export const fetchAuthMe = createAsyncThunk("authMe/fetchAuthMe", async () => {
-  const response = await axios.get<MeResponseType>(`auth/me`);
+  const response = await axios.get<MyResponseType<MeResponseDataType>>(
+    `auth/me`
+  );
   return response.data;
 });
 

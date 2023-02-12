@@ -1,8 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { UsersType, UserType } from "../../redux/types";
 import classes from "./Users.module.scss";
 
-const User = ({ users, user, followUnfollowUser }) => {
+type UserPropsType = {
+  users: UsersType;
+  user: UserType;
+  followUnfollowUser: (user: UserType, e: any) => void;
+};
+
+const User: React.FC<UserPropsType> = ({ users, user, followUnfollowUser }) => {
   return (
     <div>
       <span>
@@ -20,7 +27,7 @@ const User = ({ users, user, followUnfollowUser }) => {
             <button
               onClick={(e) => followUnfollowUser(user, e)}
               disabled={
-                users.followingInProgress.some((id) => id === user.id)
+                users.followingInProgress.some((id: number) => id === user.id)
                   ? true
                   : false
               }

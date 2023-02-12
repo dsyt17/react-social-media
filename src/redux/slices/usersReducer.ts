@@ -1,18 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "../../axios";
-import { UsersType, UserType } from "../types";
+import { GetItemsType, MyResponseType, UsersType } from "../types";
 
-type InitialStateType = {
-  users: Array<UsersType>;
-  userById: Array<UserType>;
-  isLoading: boolean;
-  isLoadingUser: boolean;
-  usersCount: number;
-  usersOnPage: number;
-  followingInProgress: Array<number | null | void>;
-};
-
-const initialState: InitialStateType = {
+const initialState: UsersType = {
   users: [],
   userById: [],
   isLoading: true,
@@ -25,7 +15,9 @@ const initialState: InitialStateType = {
 export const fetchUsers = createAsyncThunk(
   "users/fetchUsers",
   async (page: number) => {
-    const response = await axios.get(`users/?page=${page}&count=${20}`);
+    const response = await axios.get<GetItemsType>(
+      `users/?page=${page}&count=${20}`
+    );
     return response.data;
   }
 );
@@ -33,7 +25,7 @@ export const fetchUsers = createAsyncThunk(
 export const followUser = createAsyncThunk(
   "users/followUser",
   async (userId: number) => {
-    const response = await axios.post(`follow/${userId}`, {});
+    const response = await axios.post<MyResponseType>(`follow/${userId}`, {});
     return response.data;
   }
 );

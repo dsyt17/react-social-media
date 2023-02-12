@@ -1,29 +1,40 @@
-import React, { createRef } from "react";
+import React from "react";
 import classes from "./Messages.module.scss";
 import DialogItem from "./DialogItem";
 import MessageItem from "./MessageItem";
-import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
-import { Field, reduxForm } from "redux-form";
+import { InjectedFormProps, reduxForm } from "redux-form";
 import {
   maxLengthCreator,
   requiredField,
 } from "../../utils/validators/validators";
-import { Textarea } from "../common/FormsControls/FormsControls";
+import { createField, Textarea } from "../common/FormsControls/FormsControls";
 import useDocumentTitle from "../../hooks/useDocumentTitle";
+import { useAppSelector } from "../../hooks/hooks";
 
 const maxLen100 = maxLengthCreator(100);
 
-const MessageForm = (props) => {
+type MessageFormPropsType = {};
+
+type MessageFormType = {
+  NewMessage: string;
+};
+
+type MessageFormTypeKeys = Extract<keyof MessageFormType, string>;
+
+const MessageForm: React.FC<
+  InjectedFormProps<MessageFormType, MessageFormPropsType> &
+    MessageFormPropsType
+> = (props) => {
   return (
     <form onSubmit={props.handleSubmit}>
       <div>
-        <Field
-          type="text"
-          name="NewMessage"
-          validate={[requiredField, maxLen100]}
-          component={Textarea}
-        />
+        {createField<MessageFormTypeKeys>(
+          "New message...",
+          "NewMessage",
+          [requiredField, maxLen100],
+          Textarea
+        )}
       </div>
       <div>
         <button>Send</button>
@@ -32,16 +43,16 @@ const MessageForm = (props) => {
   );
 };
 
-const MessageReduxForm = reduxForm({
+const MessageReduxForm = reduxForm<MessageFormType, MessageFormPropsType>({
   form: "messagesForm",
 })(MessageForm);
 
-const Messages = () => {
+const Messages: React.FC = () => {
   useDocumentTitle("Messages");
-  const dialogsData = useSelector((state) => state.dialogs);
-  const isAuth = useSelector((state) => state.authMe.isAuth);
+  const dialogsData = useAppSelector((state) => state.dialogs);
+  const isAuth = useAppSelector((state) => state.authMe.isAuth);
 
-  const onSubmit = (formData) => {
+  const onSubmit = (formData: MessageFormType) => {
     console.log(formData);
   };
 
@@ -58,8 +69,8 @@ const Messages = () => {
       </div>
       <div className={classes.chat}>
         <div>
-          {dialogsData.messages.map((e, i) => (
-            <MessageItem key={i} id={e.id} message={e.message} />
+          {dialogsData.messages.map((e) => (
+            <MessageItem key={e.id} message={e.message} />
           ))}
         </div>
         <MessageReduxForm onSubmit={onSubmit} />

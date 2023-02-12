@@ -1,12 +1,12 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchLogout } from "../../redux/slices/authReducer.ts";
+import { fetchLogout } from "../../redux/slices/authReducer";
 import classes from "./Header.module.scss";
 import logo from "../../assets/temp-logo.png";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 
 const Header = () => {
-  const currentUser = useSelector((state) => state.authMe);
-  const dispatch = useDispatch();
+  const currentUser = useAppSelector((state) => state.authMe);
+  const dispatch = useAppDispatch();
 
   const logout = () => {
     dispatch(fetchLogout());

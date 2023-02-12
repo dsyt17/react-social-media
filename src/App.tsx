@@ -1,15 +1,14 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import "./App.scss";
 import AppRouter from "./components/AppRouter";
 import Header from "./components/Header/Header";
 import Navbar from "./components/Navbar/Navbar";
-import { initializeApp } from "./redux/slices/appReducer.ts";
-import { fetchAuthMe } from "./redux/slices/authReducer.ts";
+import { useAppDispatch, useAppSelector } from "./hooks/hooks";
+import { initializeApp } from "./redux/slices/appReducer";
+import { fetchAuthMe } from "./redux/slices/authReducer";
 
 const App = () => {
-  const dispatch = useDispatch();
-  const initialized = useSelector((state) => state.app.initialized);
+  const dispatch = useAppDispatch();
+  const initialized = useAppSelector((state) => state.app.initialized);
 
   const initialApp = () => {
     const authPromise = dispatch(fetchAuthMe());
@@ -18,9 +17,7 @@ const App = () => {
     });
   };
 
-  useEffect(() => {
-    initialApp();
-  }, []);
+  initialApp();
 
   return !initialized ? (
     <></>
